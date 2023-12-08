@@ -12,18 +12,16 @@ class Result {
 public static List<String> weightedUniformStrings(String s, List<Integer> queries) {
         HashMap<Character, Integer> hashMap = new HashMap<>();
 
-        // Initialize the weight mapping for characters 'a' to 'z'
         for (char c = 'a'; c <= 'z'; c++) {
             hashMap.put(c, c - 'a' + 1);
         }
 
         char[] hashChar = s.toCharArray();
-        Set<Integer> ql = new HashSet<>(); // Use a Set to store all possible weights
+        Set<Integer> ql = new HashSet<>(); 
 
         int currentWeight = hashMap.get(hashChar[0]);
         ql.add(currentWeight);
 
-        // Calculate the weights for consecutive identical characters
         for (int i = 1; i < s.length(); i++) {
             int weight = hashMap.get(hashChar[i]);
             if (hashChar[i] == hashChar[i - 1]) {
