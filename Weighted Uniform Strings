@@ -1,0 +1,50 @@
+class Result {
+
+    /*
+     * Complete the 'weightedUniformStrings' function below.
+     *
+     * The function is expected to return a STRING_ARRAY.
+     * The function accepts following parameters:
+     *  1. STRING s
+     *  2. INTEGER_ARRAY queries
+     */
+    
+public static List<String> weightedUniformStrings(String s, List<Integer> queries) {
+        HashMap<Character, Integer> hashMap = new HashMap<>();
+
+        // Initialize the weight mapping for characters 'a' to 'z'
+        for (char c = 'a'; c <= 'z'; c++) {
+            hashMap.put(c, c - 'a' + 1);
+        }
+
+        char[] hashChar = s.toCharArray();
+        Set<Integer> ql = new HashSet<>(); // Use a Set to store all possible weights
+
+        int currentWeight = hashMap.get(hashChar[0]);
+        ql.add(currentWeight);
+
+        // Calculate the weights for consecutive identical characters
+        for (int i = 1; i < s.length(); i++) {
+            int weight = hashMap.get(hashChar[i]);
+            if (hashChar[i] == hashChar[i - 1]) {
+                currentWeight += weight;
+            } else {
+                currentWeight = weight;
+            }
+            ql.add(currentWeight);
+        }
+
+        List<String> result = new ArrayList<>();
+
+        for (int query : queries) {
+            if (ql.contains(query)) {
+                result.add("Yes");
+            } else {
+                result.add("No");
+            }
+        }
+
+        return result;
+    }
+
+}
